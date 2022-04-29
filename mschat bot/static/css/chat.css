@@ -1,0 +1,218 @@
+/* Giving the chat tab a fixed position at the bottom side of screen, with a slight adjustment
+of 50px from right side and a shadow effect */
+.chat-bar-collapsible {
+    position: fixed;
+    bottom: 0;
+    right: 50px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Used for the clickable button of tab, pointer for the user to understand to click on it,
+ padding of 18px around text, width of the tab, alligning the text to the left, and styling 
+ its border - from down up to be curved 3px of solid line, from bottom to be none */
+.collapsible {
+    background-color: rgb(148, 77, 142);
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 350px;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    border-radius: 10px 10px 0px 0px;
+    border: 1px solid rgb(65, 1, 60);
+    border-bottom: none;
+}
+
+/* All of the elements inside the tab, with initial height of 0 to be present, but not opened
+until the user clicks on it, adding transition effect of ease out for 0.2 seconds */
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+/* Style and functionality of all the elements inside the chat block after its clicked. 
+ After adding JS the .content element will switch to the .full-chat-block element and 
+ vice versa when clicked on, essentially both being responsible for one another when 
+ the chat tab is opened or closed */
+.full-chat-block {
+    width: 350px;
+    background: white;
+    text-align: center;
+    overflow: auto;
+    scrollbar-width: none;
+    height: max-content;
+    transition: max-height 0.2s ease-out;
+}
+
+/* Defining how small the chatbox height should be, when clicked always having a 
+ minimum of 500 px height even if there is only one message (to prevent unwanted scaling of
+ height just for one message */
+.outer-container {
+    min-height: 500px;
+    bottom: 0%;
+    position: relative;
+}
+
+/* Guarantee of 500px max height when clicked on (again preventing unwanted 
+ scaling/indefinite grow), scrollig behavior rather than infinite list growing upwards */
+.chat-container {
+    max-height: 500px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    scroll-behavior: smooth;
+    hyphens: auto;
+}
+
+/* Pseudo element for scrollbar to remain hidden inside the chat box */
+.chat-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Styling of the input block container (input and the buttons (icons) using Flexbox to 
+ evently distribute the content and some border and padding styling */
+.chat-bar-input-block {
+    display: flex;
+    float: left;
+    box-sizing: border-box;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: rgb(178, 119, 173);
+    border-radius: 10px 10px 0px 0px;
+    padding: 10px 0px 10px 10px;
+}
+
+/* Styling of the icons container (heart and send button), Flexbox spacing the icons evenly,
+ positioning them to the right side and of 20px sizing */
+.chat-bar-icons {
+    display: flex;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    width: 25%;
+    float: right;
+    font-size: 20px;
+}
+
+/* Another pseudo element taking care of the hover efect when hovering over the icons to 
+ fade out to 0.7 opacity to again hint the user that they are there to be used as buttons */
+.chat-icon::hover {
+    opacity: 0.7;
+}
+
+/* CHAT BUBBLES */
+
+/* User input box set to 75 % to not overlap the buttons since 25% is set for them*/
+#userInput {
+    width: 75%;
+}
+
+/* The style of actual input box, sticking to left side, maximum possible width, no default
+  border, rounded borders with padding, black text of 15px with white background, 
+  and no outline when cliked on */
+.input-box {
+    float: left;
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    color: #000;
+    background-color: #f1f1f1;
+    outline: none;
+}
+
+/* IMPORTANT STUFF! */
+
+/* Used to define the style of text sent by user, inside the 'bubble' when a message is sent */
+.userText {
+    color: white;
+    font-family: 'Roboto Mono';
+    font-size: 15px;
+    font-weight: normal;
+    text-align: right;
+    clear: both;
+}
+
+/* Used to define the box container on the outside of the text sent by user */
+.userText span {
+    line-height: 1.5em;
+    display: inline-block;
+    background: rgb(33, 7, 65);
+    padding: 10px;
+    border-radius: 8px;
+    border-bottom-right-radius: 2px;
+    max-width: 80%;
+    margin-right: 10px;
+    animation: floatup 0.5s forwards;
+}
+
+/* Used to define the style of text sent by bot, inside the 'bubble' when a message is sent */
+.botText {
+    color: #000;
+    font-family: 'Roboto Mono';
+    font-size: 15px;
+    font-weight: normal;
+    text-align: left;
+}
+
+/* Used to define the box container on the outside of the text sent by bot*/
+.botText span {
+    line-height: 1.5em;
+    display: inline-block;
+    background: rgb(148, 123, 178);
+    padding: 10px;
+    border-radius: 8px;
+    border-bottom-left-radius: 2px;
+    max-width: 80%;
+    margin-left: 10px;
+    animation: floatup 0.5s forwards;
+}
+
+/* MESSAGE POP UP ANIMATION */
+
+/* Starts on translateY 14px and ends on translateY 0px from opacity of 0 to opacity of 1 */
+@keyframes floatup {
+    from {
+        transform: translateY(14px);
+        opacity: .0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+/* MEDIA QUERRY TAG*/
+
+/* Allows us to specify the app behavior when the screen size is less than 600px.
+ Width of full-chat-block goes to 100% to occupy all the screen*/
+@media screen and (max-width:600px) {
+    .full-chat-block {
+        width: 100%;
+        border-radius: 0px;
+    }
+
+    /* Fixed position with a bottom and right of 0 and a full width of screen*/
+    .chat-bar-collapsible {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    /* Collapsibe is 100% of the width of the screen*/
+    .collapsible {
+        width: 100%;
+        border: 0px;
+        border-top: 3px solid white;
+        border-radius: 0px;
+    }
+}
